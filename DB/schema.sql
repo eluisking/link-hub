@@ -23,5 +23,6 @@ USING (auth.role() = 'authenticated');
 -- ***DATA TEST***
 INSERT INTO links (name_link, url_link, is_public_link)
 VALUES 
+('Hyper UI', 'https://www.hyperui.dev/', false);
 ('Astro Docs', 'https://docs.astro.build', true),
 ('Tailwind Cheatsheet', 'https://nerdcave.com/tailwind-cheat-sheet', true);

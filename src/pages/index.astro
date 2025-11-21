@@ -1,9 +1,38 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Cards from '../components/Cards.astro';
+import Inputsh from '../components/Inputsh.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+import { supabase } from "../lib/supabase";
+
+// 1. Fetch de datos desde el servidor (Build time o Server time)
+const { data: links, error } = await supabase
+  .from('links')
+  .select('*')
+  .eq('is_public_link', true); // Solo los públicos
+
+if (error) console.error("Error fetching links:", error);
 ---
 
 <Layout>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-center gap-3">
+            <div>
+                <p class="font-semibold">Buscar:</p>
+            </div>
+            <div class="w-1/2">
+                <Inputsh/>
+            </div>
+        </div>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
+        <div class="grid grid-cols-3 gap-3">
+            {links?.map((link) => (
+                <Cards title={link.name_link} link={link.url_link} date={link.created_at}/>
+            ))}
+        </div>
+    </div>
 </Layout>

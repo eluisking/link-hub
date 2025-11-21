@@ -1,4 +1,5 @@
 ---
+import Cards from "../components/Cards.astro";
 import { supabase } from "../lib/supabase";
 
 // 1. Fetch de datos desde el servidor (Build time o Server time)
@@ -17,28 +18,13 @@ if (error) console.error("Error fetching links:", error);
 		<title>Link Hub</title>
 	</head>
 	<body class="bg-slate-900 text-white min-h-screen p-10">
-		
-		<h1 class="text-4xl font-bold mb-8 text-center text-teal-400">Link Hub 🔗</h1>
 
 		<div class="max-w-2xl mx-auto grid gap-4">
 			{links?.map((link) => (
-				<a 
-					href={link.url_link} 
-					target="_blank" 
-					rel="noopener noreferrer"
-					class="block p-6 bg-slate-800 rounded-lg hover:bg-slate-700 transition border border-slate-700 hover:border-teal-500 group"
-				>
-					<h2 class="text-xl font-semibold group-hover:text-teal-300">
-						{link.name_link}
-					</h2>
-					<p class="text-slate-400 text-sm mt-1">
-						{link.url_link}
-					</p>
-				</a>
+				<Cards title={link.name_link} />
 			))}
-            
             {links?.length === 0 && <p class="text-center text-slate-500">No hay links aún.</p>}
 		</div>
-
+		
 	</body>
 </html>
